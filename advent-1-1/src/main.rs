@@ -28,9 +28,18 @@ fn main() -> io::Result<()> {
     first_array.sort();
     second_array.sort();
 
-    // Print the arrays
-    println!("First array: {:?}", first_array);
-    println!("Second array: {:?}", second_array);
+        // Calculate the differences
+        let differences: Vec<i32> = first_array
+        .iter() // Create an iterator over the first array
+        .zip(second_array.iter()) // Pair elements from the second array
+        .map(|(a, b)| (a - b).abs()) // Calculate absolute differences
+        .collect(); // Collect results into a vector
+
+    // Print the differences
+    println!("Differences: {:?}", differences);
+    let total: i32 = differences.iter().sum();
+
+    println!("Total Differences {:?}", total);
 
     Ok(())
 }
