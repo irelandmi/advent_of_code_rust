@@ -15,7 +15,7 @@ fn main() -> io::Result<()> {
             .split_whitespace() // Split by whitespace
             .filter_map(|s| s.parse::<i32>().ok()) // Parse as integers, ignoring errors
             .collect();
-        error_handler(numbers, &mut answer_array);
+        damage_control_error(numbers, &mut answer_array);
     }
     println!("{:?}", answer_array);
     let answer: i32 = answer_array.iter().sum();
@@ -45,13 +45,16 @@ fn damage_control_error(vec: Vec<i32>, answer_array: &mut Vec<i32>) {
     // return Some(1)
     let mut svecs = create_subvectors(&vec);
     for svec in svecs {
-        error_handler(svec, answer_array);
+        let result = error_handler(svec);
+        if result == 1 {
+            answer_array.push(1);
+            break;
+        }
     }
-    answer_array.push(0);
     println!("UNSAFE: HUGE DIFF");
 }
 
-fn error_handler(numbers: Vec<i32>) {
+fn error_handler(numbers: Vec<i32>) -> i32 {
 
     println!("line: {:?}", numbers);
 
@@ -94,8 +97,9 @@ fn error_handler(numbers: Vec<i32>) {
             }
 
             if number == numbers.len() - 2 {
-                answer_array.push(1);
+                return 1
             }
         }
     }
+    return 0
 }

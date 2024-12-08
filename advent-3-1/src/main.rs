@@ -12,7 +12,7 @@ fn main() -> io::Result<()> {
 
     let mut answer_vec: Vec<i32> = vec![];
     let mut final_answer: i32 = 0;
-    // Iterate through all matches
+
     for caps in re.captures_iter(&contents) {
         let mut answer: i32 = 0;
         let mut capture_answer: i32 = 0;
