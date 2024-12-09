@@ -2,6 +2,7 @@ use std::fs;
 use regex::Regex;
 use std::io;
 
+// 34202765
 fn main() -> io::Result<()> {
     // Step 1: Read the file into a string
     let file_path = "input.txt"; // replace with your file path
@@ -14,31 +15,32 @@ fn main() -> io::Result<()> {
     let mut final_answer: i32 = 0;
     
     // Regex to match "don't(...) do()" pattern
-    let re_remove = Regex::new(r"don't\([^\)]*\)\s*do\(\)").unwrap();
+    // let re_punc = Regex::new(r"\t|\n|\r").unwrap();
+    let re_remove = Regex::new(r"(?s)(don't\(\)).*?(do\(\))").unwrap();
 
     // Replace matches with an empty string
-    let clean_contents = re_remove.replace_all(&contents, "").to_string();
-    println!("{}",clean_contents);
-
-    for caps in re.captures_iter(&clean_contents) {
+    // let tidy_contents = re_punc.replace_all(&contents, "").to_string();
+    let final_contents = re_remove.replace_all(&contents, "").to_string();
+    println!("{}",final_contents);
+    for caps in re.captures_iter(&final_contents) {
         let mut answer: i32 = 0;
         let mut capture_answer: i32 = 0;
         let mut capture_answer_2: i32 = 0;
         if let Some(matched) = caps.get(2) { // Capture group 2
             let nums = matched.as_str();    
-            println!("1 {}", nums);          
+            // println!("1 {}", nums);          
             if let Ok(num) = nums.parse::<i32>() {
                 capture_answer = num;
-                println!("cap a: {}",capture_answer)
+                // println!("cap a: {}",capture_answer)
             }
             
         }
         if let Some(matched) = caps.get(3) { // Capture group 3
             let nums = matched.as_str();    
-            println!("1 {}", nums);        
+            // println!("1 {}", nums);        
             if let Ok(num) = nums.parse::<i32>() {
                 capture_answer_2 = num;
-                println!("cap b: {}",capture_answer_2)
+                // println!("cap b: {}",capture_answer_2)
             }
         }
 
@@ -50,7 +52,6 @@ fn main() -> io::Result<()> {
     println!("{:?}",answer_vec);
     final_answer = answer_vec.iter().sum();
     println!("{:?}",final_answer);
-
     Ok(())
 }
 
