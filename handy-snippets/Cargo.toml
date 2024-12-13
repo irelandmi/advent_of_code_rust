@@ -1,0 +1,16 @@
+[package]
+name = "handy-snippets"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "loops"
+path = "src/loops.rs"
+
+[[bin]]
+name = "hash-algo"
+path = "src/hash-algo.rs"
+
+[[bin]]
+name = "expand"
+path = "src/expand.rs"
