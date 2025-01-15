@@ -40,7 +40,7 @@ fn main() -> io::Result<()> {
 fn generate_hash(input1: &str, input2: &str, input3: &str, input4: &str, input5: &str) -> u64 {
     let mut hasher = DefaultHasher::new();
     // Combine the inputs into a single hashable structure
-    (input1, input2, input3, input4, input5).hash(&mut hasher);
+    (input1, input2, input3).hash(&mut hasher);
     hasher.finish()
 }
 
@@ -61,7 +61,23 @@ fn compute_valid_combinations(valid_path: [&str, 3]) -> Vec<u64> {
     let left: i32 = -1;
     let right: i32 = 1;
 
-    return 
+    let checker: Vec<u32> = vec![];
+
+    let top_left_bottom_right: Vec<((i32,i32),(i32,i32),(i32,i32))> = Vec<((-1, -1), (0, 0), (1, 1))>;
+    let bottom_right_top_left: Vec<((1, 1), (0, 0), (-1, -1))>;
+    let bottom_left_top_right: Vec<((1, -1), (0, 0), (-1, 1))>;
+    let top_right_bottom_left: Vec<((-1, 1), (0, 0), (1, -1))>;
+
+    for i in arrays {
+        check_if_valid
+            checker.push(1);
+        check_if_valid_reversed
+            checker.push(1);
+        if checker.sum() == 2 {
+            return 1
+        }
+    }
+    return 0
 }
 
 fn parse_grid(grid: &HashMap<(i32, i32), String>, valid_path: [&str; 4], answer_array: &mut Vec<i32>) {
